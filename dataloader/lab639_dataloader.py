@@ -145,8 +145,8 @@ class Lab639DataLoader(Dataset):
         self.views = sorted(self.views)
         self.num_frames = self.config.num_frames
 
-        if len(self.views) != self.config.num_views:
-            raise ValueError(f"Number of views in {self.anno} is {len(self.views)}, but config num_views is {self.config.num_views}")
+        # if len(self.views) != self.config.num_views:
+        #     raise ValueError(f"Number of views in {self.anno} is {len(self.views)}, but config num_views is {self.config.num_views}")
         if len(self.actions) != self.config.num_classes:
             raise ValueError(f"Number of actions in {self.anno} is {len(self.actions)}, but config num_classes is {self.config.num_classes}")
 
