@@ -19,6 +19,7 @@ def parse_args():
     parser.add_argument('--num_classes', type=int, default=10)
     parser.add_argument('--num_frames', type=int, default=16)
     parser.add_argument('--num_views', type=int)
+    parser.add_argument('--single_camera', type=str, required=True, choices=['C001', 'C002', 'C003', 'C004'], help='Select a single camera view for training/testing')
 
     # training & inference
     parser.add_argument('--mode', type=str, required=True, choices=['train', 'test'], help='Mode of operation: train or test')
@@ -70,6 +71,7 @@ class Lab639Config(object):
         self.num_classes = args.num_classes
         self.num_frames = args.num_frames
         self.num_views = args.num_views
+        self.single_camera = args.single_camera
 
         self.seed = 42
 

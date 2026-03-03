@@ -108,6 +108,10 @@ class Lab639DataLoader(Dataset):
             video_id, subject, action, camera, repetition, setup = row.split(',')
             dict_action = video_id[-3:]
 
+            # select the specific camera
+            if self.config.single_camera not in video_id:
+                continue
+
             if f"{video_id}.hdf5" not in hdf5_list:
                 print(f"{video_id}.hdf5 not in {self.config.data_path}")
                 continue
@@ -122,10 +126,10 @@ class Lab639DataLoader(Dataset):
             self.video_data_dict[f"{subject}_{action}_{repetition}_{setup}_{dict_action}"].append(video_id)
             self.video_view_map[video_id] = camera
 
-        for video_id in self.video_data_dict:
-            if len(self.video_data_dict[video_id]) != self.config.num_views:
-                print(self.video_data_dict[video_id])
-                raise ValueError(f"Number of views in {self.anno} is {len(self.video_data_dict[video_id])}, but config num_views is {self.config.num_views}")
+        # for video_id in self.video_data_dict:
+        #     if len(self.video_data_dict[video_id]) != self.config.num_views:
+        #         print(self.video_data_dict[video_id])
+        #         raise ValueError(f"Number of views in {self.anno} is {len(self.video_data_dict[video_id])}, but config num_views is {self.config.num_views}")
 
         # check class num
         if len(self.actions) != self.config.num_classes:
@@ -173,8 +177,8 @@ class Lab639DataLoader(Dataset):
         view_labels = []
 
         # check if video_data_dict's size is 4 (4 views)
-        if len(video_data_dict) != 4:
-            raise ValueError(f"video_data_dict should have {self.config.num_views} views, but got {video_data_dict}")
+        # if len(video_data_dict) != 4:
+        #     raise ValueError(f"video_data_dict should have {self.config.num_views} views, but got {video_data_dict}")
 
         for video_id in video_data_dict:
             view_id = self.video_view_map[video_id]
